@@ -14,6 +14,7 @@ const stopInterval = () => {
     clearInterval(interval)
     classList('.btn-play', 'remove', 'mdi-pause')
     classList('.btn-play', 'add', 'mdi-play')
+    classList('.btn-start', 'add', 'disable')
     classList('.btn-alarm', 'remove', 'disable')
     classList('.btn-cancel', 'add', 'disable')
     classList('body', 'add', 'alarm-animation')
@@ -34,12 +35,12 @@ const play = () => {
         classList('.error', 'add', 'active')
         setTimeout(() => classList('.error', 'remove', 'active'), 3500)
     } else {
-        setTime(hour, minute, second)
         classList('.btn-play', 'remove', 'mdi-play')
         classList('.btn-play', 'add', 'mdi-pause')
         classList('.numbers', 'add', 'active')
         classList('.text', 'add', 'disable')
         classList('.btn-cancel', 'remove', 'disable')
+        setTime(hour.value, minute.value, second.value)
         setDuration()
         interval = initTimer(stopInterval)
     }
@@ -82,6 +83,7 @@ document.querySelector('.btn-alarm').addEventListener('click', () => {
     audio.pause();
     audio.currentTime = 0;
     classList('.btn-alarm', 'add', 'disable')
+    classList('.btn-start', 'remove', 'disable')
     classList('body', 'remove', 'alarm-animation')
     stop()
 })
@@ -89,6 +91,7 @@ document.querySelector('.btn-alarm').addEventListener('click', () => {
 audio.addEventListener('ended', () => {
     classList('body', 'remove', 'alarm-animation')
     classList('.btn-alarm', 'add', 'disable')
+    classList('.btn-start', 'remove', 'disable')
     stop()
 })
 
@@ -104,8 +107,11 @@ second.addEventListener('change', () => {
     parseInt(second.value) < 10 ? second.value = `0${parseInt(second.value)}` : null
 })
 
-hour.addEventListener('input', () => hour.value = hour.value.replace(/[^0-9]/g, ''))
-second.addEventListener('input', () => second.value = second.value.replace(/[^0-9]/g, ''))
+hour.addEventListener('input', () => {
+    hour.value = hour.value.replace(/[^0-9]/g, '')
+    parseInt(hour.value < 10) ? hour.value = `0${parseInt(hour.value)}` : null
+})
+second.addEventListener('input', () => { })
 minute.addEventListener('input', () => minute.value = minute.value.replace(/[^0-9]/g, ''))
 
 btnCloseModal.addEventListener('click', () => {

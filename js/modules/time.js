@@ -19,7 +19,7 @@ const verifyTimer = () => {
         time.minute = 59
         time.hour--
     }
-    time.second -= 1
+    time.second--
 }
 
 const durations = {
@@ -29,15 +29,18 @@ const durations = {
 }
 
 const setDuration = () => {
+    cont = 0
+    timer = 0
     inputs.forEach((input, index) => {
-        time[arrayTime[index]] = parseInt(input?.value)
-        timer += durations[arrayTime[index]] * input?.value
+        time[arrayTime[index]] = parseInt(input.value)
+        timer += durations[arrayTime[index]] * parseInt(input.value)
     })
     numbers.forEach((number, index) => {
         const value = time[arrayTime[index]]
 
         number.innerHTML = value < 10 ? `0${value}` : value
     })
+    console.log(timer);
 }
 
 const initTimer = (stopCallback) => setInterval(() => {
@@ -58,6 +61,7 @@ const setTime = (hour, minute, second) => {
 }
 
 const updateTimer = () => inputs.forEach((input, index) => input.value = time[arrayTime[index]])
+
 
 const resetTime = () => {
     arrayTime.forEach(timer => time[timer] = 0)
