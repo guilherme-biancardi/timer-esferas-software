@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timer Javascript</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@mdi/font@6.9.96/css/materialdesignicons.min.css">
+    <script src="js/main.js" defer type="module"></script>
+</head>
+
+<body>
+    <div class="modal-backdrop disable">
+        <div class="modal">
+            <button class="btn-close"><i class="mdi mdi-close"></i></button>
+            <div>
+                <h1>Proposta</h1>
+                <h2>Criar um timer utilizando javascript</h2>
+                <p>- Deve conter um botão para Iniciar a contagem regressiva</p>
+                <p>- Deve conter um botão para Pausar a contagem</p>
+                <p>- Deve conter um botão para Cancelar a contagem</p>
+                <p>- Precisa haver um jeito de definir o tempo de contagem (ex: 10 minutos, 1 minuto, 1 hora, 59
+                    segundos,
+                    etc)</p>
+                <p>- Deve exibir a contagem regressiva na tela</p>
+            </div>
+            <div>
+                <h1>BÔNUS</h1>
+                <p>- Ao final tocar um alarme</p>
+                <p>- Ao pressionar a tecla "I" deve iniciar o timer, se precionar a tecla "P" deve pausar.</p>
+                <p> - O botão pausar e iniciar devem ser o mesmo botão, ou seja, quando estiver contando fica "Pausar"
+                    quando
+                    estiver parado fica "Iniciar", alterando apenas o texto do botão.</p>
+            </div>
+        </div>
+    </div>
+    <main>
+        <div class="error">
+            <i class="mdi mdi-alert"></i>
+            <p>Insira um tempo válido.</p>
+        </div>
+        <form class="form-timer">
+            <div class="inputs">
+                <h1>Horas</h1>
+                <br>
+                <h1>Minutos</h1>
+                <br>
+                <h1>Segundos</h1>
+            </div>
+            <div class="inputs text">
+                <input type="text" value="00" minlength="1" maxlength="2" autofocus>
+                <ul class="separator">
+                    <li></li>
+                    <li></li>
+                </ul>
+                <input type="text" value="00" minlength="1" maxlength="2">
+                <ul class="separator">
+                    <li></li>
+                    <li></li>
+                </ul>
+                <input type="text" value="00" minlength="1" maxlength="2">
+            </div>
+            <div class="inputs numbers">
+                <h2>00</h2>
+                <ul class="separator">
+                    <li></li>
+                    <li></li>
+                </ul>
+                <h2>00</h2>
+                <ul class="separator">
+                    <li></li>
+                    <li></li>
+                </ul>
+                <h2>00</h2>
+            </div>
+            <div class="buttons">
+                <button type="button" class="btn-start"><i class="btn-play mdi mdi-play"></i></button>
+                <button type="button" class="btn-cancel disable"><i class="mdi mdi-cancel"></i></button>
+                <button type="button" class="disable btn-alarm"><i class=" mdi mdi-alarm-off"></i></button>
+            </div>
+        </form>
+    </main>
+</body>
+
+</html>
