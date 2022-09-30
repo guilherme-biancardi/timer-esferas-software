@@ -1,14 +1,23 @@
+// importando as funções do modulo time
 import { setDuration, initTimer, setTime, updateTimer, resetTime } from './modules/time.js'
 
+// elementos da página
 const [hour, minute, second] = document.querySelectorAll('.inputs input'),
     btnStart = document.querySelector('.btn-start'),
     btnCancel = document.querySelector('.btn-cancel'),
     audio = new Audio('../assets/audio.mp3'),
-    btnCloseModal = document.querySelector('.btn-close')
-
+    btnCloseModal = document.querySelector('.btn-close'),
+    numbers = document.querySelectorAll('.numbers h2')
 
 let interval = {}, isPause = false
 
+//funções do programa principal 
+
+// função para facilitação da estilização dinâmica da página
+const classList = (element, action, className) =>
+    document.querySelector(element).classList[action](className)
+
+// função passada por callback e chamada ao término do timer
 const stopInterval = () => {
     audio.play()
     clearInterval(interval)
@@ -20,16 +29,15 @@ const stopInterval = () => {
     classList('body', 'add', 'alarm-animation')
 }
 
-const classList = (element, action, className) =>
-    document.querySelector(element).classList[action](className)
-
+// função responsável por pausar o timer
 const pause = () => {
     clearInterval(interval)
-    updateTimer()
+    updateTimer([hour, minute, second])
     classList('.btn-play', 'add', 'mdi-play')
     classList('.btn-play', 'remove', 'mdi-pause')
 }
 
+// função responsável por iniciar o timer
 const play = () => {
     if ([hour, minute, second].every(input => parseInt(input.value) === 0)) {
         classList('.error', 'add', 'active')
@@ -37,48 +45,54 @@ const play = () => {
     } else {
         classList('.btn-play', 'remove', 'mdi-play')
         classList('.btn-play', 'add', 'mdi-pause')
-        classList('.numbers', 'add', 'active')
+        classList('.numbers', 'add', 'active-numbers')
         classList('.text', 'add', 'disable')
         classList('.btn-cancel', 'remove', 'disable')
         setTime(hour.value, minute.value, second.value)
-        setDuration()
-        interval = initTimer(stopInterval)
+        setDuration(numbers)
+        interval = initTimer(numbers, stopInterval)
     }
 }
 
+// função responsável por cancelar o timer
 const stop = () => {
-    classList('.numbers', 'remove', 'active')
+    classList('.numbers', 'remove', 'active-numbers')
     classList('.text', 'remove', 'disable')
     classList('.btn-play', 'add', 'mdi-play')
     classList('.btn-cancel', 'add', 'disable')
-    clearInterval(interval)
     resetTime()
+    clearInterval(interval)
     hour.focus()
 }
 
+// objeto responsável por atribuir funções as teclas I e P na página
 const keys = {
     p: pause,
     i: play
 }
 
-// checking if it is the first time on site
+// verificando se é a primeira que acessa a página, se sim, mostra o modal de introdução
 window.onload = () => {
     if (!localStorage.getItem('firstTime')) {
         classList('.modal-backdrop', 'remove', 'disable')
     }
 }
 
-// events
+// eventos da página
+
+// evento dos botoões de iniciar e cancelar
 btnStart.addEventListener('click', () => {
     isPause ? pause() : play()
     isPause = !isPause
 })
 btnCancel.addEventListener('click', stop)
 
+// evento para pegar as teclas digitadas na página
 document.body.addEventListener('keyup', (e) => {
     if (keys[e.key]) keys[e.key]()
 })
 
+// evento do botão de parar o alarme
 document.querySelector('.btn-alarm').addEventListener('click', () => {
     audio.pause();
     audio.currentTime = 0;
@@ -88,6 +102,7 @@ document.querySelector('.btn-alarm').addEventListener('click', () => {
     stop()
 })
 
+// evento para caso o alarme toque até o final
 audio.addEventListener('ended', () => {
     classList('body', 'remove', 'alarm-animation')
     classList('.btn-alarm', 'add', 'disable')
@@ -95,25 +110,26 @@ audio.addEventListener('ended', () => {
     stop()
 })
 
-hour.addEventListener('change', () => {
-    parseInt(hour.value < 10) ? hour.value = `0${parseInt(hour.value)}` : null
-})
-minute.addEventListener('change', () => {
-    minute.value = parseInt(minute.value) > 59 ? 0 : minute.value
-    parseInt(minute.value) < 10 ? minute.value = `0${parseInt(minute.value)}` : null
-})
-second.addEventListener('change', () => {
-    second.value = parseInt(second.value) > 59 ? 0 : second.value
-    parseInt(second.value) < 10 ? second.value = `0${parseInt(second.value)}` : null
+// eventos de verificar e mudar os valores quando necessário
+const inputs = [hour, minute, second],
+    limits = [99, 59, 59]
+
+inputs.forEach((input, index) => {
+    /*
+    - evento verifica se o valor é maior que o limite, se sim o valor vira 0
+    - verica também se o valor é menor que 10, se sim, adiciona um 0 ao valor (ex: 9 => 09)
+    */
+    input.addEventListener('change', () => {
+        let value = parseInt(input.value)
+        value = value > limits[index] ? 0 : value
+        input.value = value < 10 ? `0${value}` : value
+    })
+
+    // evento para limitar o input apenas para números 
+    input.addEventListener('input', () => input.value = input.value.replace(/[^0-9]/g, ''))
 })
 
-hour.addEventListener('input', () => {
-    hour.value = hour.value.replace(/[^0-9]/g, '')
-    parseInt(hour.value < 10) ? hour.value = `0${parseInt(hour.value)}` : null
-})
-second.addEventListener('input', () => { })
-minute.addEventListener('input', () => minute.value = minute.value.replace(/[^0-9]/g, ''))
-
+// evento para o click do botão de fechar do modal de introdução
 btnCloseModal.addEventListener('click', () => {
     classList('.modal-backdrop', 'add', 'disable')
     localStorage.setItem('firstTime', true)
