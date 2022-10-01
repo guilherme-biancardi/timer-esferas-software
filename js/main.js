@@ -35,6 +35,7 @@ const pause = () => {
     updateTimer([hour, minute, second])
     classList('.btn-play', 'add', 'mdi-play')
     classList('.btn-play', 'remove', 'mdi-pause')
+    isPause = false
 }
 
 // função responsável por iniciar o timer
@@ -48,9 +49,11 @@ const play = () => {
         classList('.numbers', 'add', 'active-numbers')
         classList('.text', 'add', 'disable')
         classList('.btn-cancel', 'remove', 'disable')
+        clearInterval(interval)
         setTime(hour.value, minute.value, second.value)
         setDuration(numbers)
         interval = initTimer(numbers, stopInterval)
+        isPause = true
     }
 }
 
@@ -63,12 +66,26 @@ const stop = () => {
     resetTime()
     clearInterval(interval)
     hour.focus()
+    Array.from([hour, minute, second]).forEach(input => input.value = '00')
+}
+
+// função responsável por parar o alarme (antes de acabar)
+const stopAlarm = () => {
+    audio.pause();
+    audio.currentTime = 0;
+    classList('.btn-alarm', 'add', 'disable')
+    classList('.btn-start', 'remove', 'disable')
+    classList('body', 'remove', 'alarm-animation')
+    stop()
 }
 
 // objeto responsável por atribuir funções as teclas I e P na página
+// há também as funções de parar e encerrar o alarme
 const keys = {
-    p: pause,
-    i: play
+    'p': pause,
+    'i': play,
+    'Delete': stop,
+    'End': stopAlarm,
 }
 
 // verificando se é a primeira que acessa a página, se sim, mostra o modal de introdução
@@ -81,26 +98,14 @@ window.onload = () => {
 // eventos da página
 
 // evento dos botoões de iniciar e cancelar
-btnStart.addEventListener('click', () => {
-    isPause ? pause() : play()
-    isPause = !isPause
-})
+btnStart.addEventListener('click', isPause ? pause : play)
 btnCancel.addEventListener('click', stop)
 
 // evento para pegar as teclas digitadas na página
-document.body.addEventListener('keyup', (e) => {
-    if (keys[e.key]) keys[e.key]()
-})
+document.body.addEventListener('keyup', (event) => keys[event.key] ? keys[event.key]() : null)
 
 // evento do botão de parar o alarme
-document.querySelector('.btn-alarm').addEventListener('click', () => {
-    audio.pause();
-    audio.currentTime = 0;
-    classList('.btn-alarm', 'add', 'disable')
-    classList('.btn-start', 'remove', 'disable')
-    classList('body', 'remove', 'alarm-animation')
-    stop()
-})
+document.querySelector('.btn-alarm').addEventListener('click', stopAlarm)
 
 // evento para caso o alarme toque até o final
 audio.addEventListener('ended', () => {
