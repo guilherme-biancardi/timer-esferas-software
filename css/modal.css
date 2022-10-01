@@ -10,9 +10,9 @@
 
 .modal{
     position: relative;
-    width: 440px;
+    width: 460px;
     min-height: 100px;
-    padding: 24px;
+    padding: 26px 32px;
     border-radius: 8px;
     height: max-content;
     background-color: var(--white);
