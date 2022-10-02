@@ -96,9 +96,8 @@ main {
 .inputs h1 {
   align-self: center;
   text-align: center;
-  font-weight: 500;
-  font-size: 1.3em;
-  text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.115);
+  font-weight: 400;
+  font-size: 1.4em;
   color: var(--white);
 }
 
