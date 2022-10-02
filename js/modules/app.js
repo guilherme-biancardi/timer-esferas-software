@@ -6,7 +6,7 @@ const [hour, minute, second] = document.querySelectorAll('.inputs input'),
     numbers = document.querySelectorAll('.numbers h2'),
     audio = new Audio('../assets/audio.mp3')
 
-let interval = {}, isPause = false
+let interval = {}, isPause = false, isAlarm = false
 
 //funções do programa principal 
 
@@ -16,6 +16,7 @@ const classList = (element, action, className) =>
 
 // função passada por callback e chamada ao término do timer
 const stopInterval = () => {
+    isAlarm = true
     audio.play()
     clearInterval(interval)
     classList('.btn-play', 'remove', 'mdi-pause')
@@ -74,6 +75,14 @@ const stopAlarm = () => {
     classList('.btn-start', 'remove', 'disable')
     classList('body', 'remove', 'alarm-animation')
     stop()
+    isAlarm = false
 }
 
-export { play, pause, stopAlarm, stop, isPause }
+// verificando se é a primeira que acessa a página, se sim, mostra o modal de introdução
+window.onload = () => {
+    if (!localStorage.getItem('firstTime')) {
+        classList('.modal-backdrop', 'remove', 'disable')
+    }
+}
+
+export { play, pause, stopAlarm, stop, classList, isPause, isAlarm }

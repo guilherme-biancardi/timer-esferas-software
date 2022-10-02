@@ -1,5 +1,5 @@
 // importando as funções do modulo app
-import { isPause, pause, play, stopAlarm } from "./modules/app.js"
+import { isAlarm, isPause, pause, play, stop, stopAlarm, classList } from "./modules/app.js"
 
 // elementos da página
 const btnStart = document.querySelector('.btn-start'),
@@ -10,23 +10,16 @@ const btnStart = document.querySelector('.btn-start'),
 // objeto responsável por atribuir funções as teclas I e P na página
 // há também as funções de parar e encerrar o alarme
 const keys = {
-    'p': pause,
-    'i': play,
+    'p': () => isAlarm ? null : pause(),
+    'i': () => isAlarm ? null : play(),
     'Delete': stop,
     'End': stopAlarm,
-}
-
-// verificando se é a primeira que acessa a página, se sim, mostra o modal de introdução
-window.onload = () => {
-    if (!localStorage.getItem('firstTime')) {
-        classList('.modal-backdrop', 'remove', 'disable')
-    }
 }
 
 // eventos da página
 
 // evento dos botoões de iniciar e cancelar
-btnStart.addEventListener('click', isPause ? pause : play)
+btnStart.addEventListener('click', () => isPause ? pause() : play())
 btnCancel.addEventListener('click', stop)
 
 // evento para pegar as teclas digitadas na página
@@ -37,6 +30,7 @@ document.querySelector('.btn-alarm').addEventListener('click', stopAlarm)
 
 // evento para caso o alarme toque até o final
 audio.addEventListener('ended', () => {
+    isAlarm = false
     classList('body', 'remove', 'alarm-animation')
     classList('.btn-alarm', 'add', 'disable')
     classList('.btn-start', 'remove', 'disable')

@@ -20,7 +20,6 @@
     flex-direction: column;
     row-gap: 12px;
     font-size: 0.9em;
-    opacity: 0.93;
 }
 
 .modal > div{
