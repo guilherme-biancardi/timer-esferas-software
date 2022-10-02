@@ -14,5 +14,5 @@ Criar um timer utilizando javascript
 - Ao pressionar a tecla "I" deve iniciar o timer, se precionar a tecla "P" deve pausar.
 - O botão pausar e iniciar devem ser o mesmo botão, ou seja, quando estiver contando fica "Pausar" quando estiver parado fica "Iniciar", alterando apenas o texto do botão
 
-# mais sobre a Esfera Software
+# mais sobre a Esferas Software
 https://esferas.com.br
