@@ -13,13 +13,11 @@ const keys = {
     'p': () => isAlarm ? null : pause(),
     'i': () => isAlarm ? null : play(),
     'Delete': stop,
-    'End': stopAlarm,
+    'End': () => isAlarm ? stopAlarm() : null,
 }
 
-// eventos da página
-
 // evento dos botoões de iniciar e cancelar
-btnStart.addEventListener('click', () => isPause ? pause() : play())
+btnStart.addEventListener('click', () => isAlarm ? null : isPause ? pause() : play())
 btnCancel.addEventListener('click', stop)
 
 // evento para pegar as teclas digitadas na página
@@ -43,12 +41,15 @@ const inputs = document.querySelectorAll('.inputs input'),
 
 inputs.forEach((input, index) => {
     /*
-    - evento verifica se o valor é maior que o limite, se sim o valor vira 0
-    - verica também se o valor é menor que 10, se sim, adiciona um 0 ao valor (ex: 9 => 09)
+    - evento verifica:
+    - se o valor digitado é um número, se não, vira 0
+    - se o valor é maior que o limite, se sim o valor vira o limite máximo
+    - se o valor é menor que 10, se sim, adiciona um 0 ao valor (ex: 9 => 09)
     */
     input.addEventListener('change', () => {
         let value = parseInt(input.value)
-        value = value > limits[index] ? 0 : value
+        isNaN(value) ? value = 0 : null
+        value = value > limits[index] ? limits[index] : value
         input.value = value < 10 ? `0${value}` : value
     })
 
@@ -56,7 +57,7 @@ inputs.forEach((input, index) => {
     input.addEventListener('input', () => input.value = input.value.replace(/[^0-9]/g, ''))
 })
 
-// evento para o click do botão de fechar do modal de introdução
+// evento para fechar o modal de introdução
 btnCloseModal.addEventListener('click', () => {
     classList('.modal-backdrop', 'add', 'disable')
     localStorage.setItem('firstTime', true)

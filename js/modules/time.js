@@ -10,12 +10,21 @@ const time = {
     hour: 0,
     minute: 0,
     second: 0
+}   
+
+// objeto com o valor de cada unidade de tempo convertida em milissegundos
+// ex: 1 hora = 3.600.000 milissegundos
+const durations = {
+    hour: 3600000,
+    minute: 60000,
+    second: 1000
 }
 
 /* 
 função responsável pela verificação e alteração dos tempos, 
-fazendo o timer countar e mostrar o tempo corretamente
+fazendo o timer contar e mostrar o tempo corretamente
 */
+// 01:00 => 00:59
 const verifyTimer = () => {
     if (time.second <= 0) {
         time.second = 60
@@ -26,13 +35,6 @@ const verifyTimer = () => {
         time.hour--
     }
     time.second--
-}
-
-// objeto com o valor de cada unidade tempo convertida a milissegundos
-const durations = {
-    hour: 3600000,
-    minute: 60000,
-    second: 1000
 }
 
 // funções para exportação
@@ -60,7 +62,7 @@ const setDuration = (numbers) => {
 /*
 função responsável por inicializar o timer, recebendo um callback para ser chamado ao final do timer.
 
-a lógica 3 partes:
+a lógica consiste em 3 partes:
     - o contador recebe + 1000 milissegundos
     - usa a verifyTimer() para atualizar os tempos
     - em seguida joga essas informações na tela com a setTimeAtNumbers()
@@ -84,7 +86,7 @@ const setTime = (hour, minute, second) => {
 // função responsável por atualizar o valor dos inputs quando o usuário pausa o timer
 const updateTimer = (inputs) => inputs.forEach((input, index) => input.value = time[arrayTime[index]])
 
-// funcão responsável por resetar os tempos e inputs para 0
-const resetTime = () => arrayTime.forEach(timer => time[timer] = 0)
+// funcão responsável por resetar os tempos para 0
+const resetTime = () => setTime(0, 0, 0)
 
 export { setTime, initTimer, setDuration, updateTimer, resetTime }

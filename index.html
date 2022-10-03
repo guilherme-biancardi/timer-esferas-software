@@ -12,10 +12,10 @@
 </head>
 
 <body>
-    <div class="modal-backdrop disable">
-        <div class="modal">
+    <div class="modal-backdrop disable flex">
+        <section class="modal flex">
             <button class="btn-close"><i class="mdi mdi-close"></i></button>
-            <div>
+            <article class="flex">
                 <h1>Proposta</h1>
                 <h2>Criar um timer utilizando javascript</h2>
                 <p>- Deve conter um botão para Iniciar a contagem regressiva</p>
@@ -25,36 +25,36 @@
                     segundos,
                     etc)</p>
                 <p>- Deve exibir a contagem regressiva na tela</p>
-            </div>
-            <div>
+            </article>
+            <article class="flex">
                 <h1>BÔNUS</h1>
                 <p>- Ao final tocar um alarme</p>
                 <p>- Ao pressionar a tecla "I" deve iniciar o timer, se precionar a tecla "P" deve pausar.</p>
                 <p> - O botão pausar e iniciar devem ser o mesmo botão, ou seja, quando estiver contando fica "Pausar"
                     quando
                     estiver parado fica "Iniciar", alterando apenas o texto do botão.</p>
-            </div>
-        </div>
+            </article>
+        </section>
     </div>
-    <main>
+    <main class="flex">
         <div class="error">
             <i class="mdi mdi-alert"></i>
             <p>Insira um tempo válido.</p>
         </div>
-        <form class="form-timer">
+        <form class="form-timer flex">
             <div class="inputs names">
-                <h1>H</h1>
-                <h1>M</h1>
-                <h1>S</h1>
+                <h1>Horas</h1>
+                <h1>Min</h1>
+                <h1>Seg</h1>
             </div>
             <div class="inputs text">
                 <input type="text" value="00" minlength="1" maxlength="2">
-                <ul class="separator">
+                <ul class="separator flex">
                     <li></li>
                     <li></li>
                 </ul>
                 <input type="text" value="00" minlength="1" maxlength="2">
-                <ul class="separator">
+                <ul class="separator flex">
                     <li></li>
                     <li></li>
                 </ul>
@@ -62,21 +62,21 @@
             </div>
             <div class="inputs numbers">
                 <h2>00</h2>
-                <ul class="separator">
+                <ul class="separator flex">
                     <li></li>
                     <li></li>
                 </ul>
                 <h2>00</h2>
-                <ul class="separator">
+                <ul class="separator flex">
                     <li></li>
                     <li></li>
                 </ul>
                 <h2>00</h2>
             </div>
-            <div class="buttons">
-                <button type="button" class="btn-start"><i class="btn-play mdi mdi-play"></i></button>
-                <button type="reset" class="btn-cancel disable"><i class="mdi mdi-cancel"></i></button>
-                <button type="reset" class="disable btn-alarm"><i class=" mdi mdi-alarm-off"></i></button>
+            <div class="buttons flex">
+                <button type="button" class="btn-start flex"><i class="btn-play mdi mdi-play"></i></button>
+                <button type="reset" class="btn-cancel disable flex"><i class="mdi mdi-cancel"></i></button>
+                <button type="reset" class="disable btn-alarm flex"><i class=" mdi mdi-alarm-off"></i></button>
             </div>
         </form>
     </main>

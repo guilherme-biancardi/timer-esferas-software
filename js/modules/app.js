@@ -78,7 +78,7 @@ const stopAlarm = () => {
     isAlarm = false
 }
 
-// verificando se é a primeira que acessa a página, se sim, mostra o modal de introdução
+// verificando se é a primeira vez que o usuário acessa a página, se sim, mostra o modal de introdução
 window.onload = () => {
     if (!localStorage.getItem('firstTime')) {
         classList('.modal-backdrop', 'remove', 'disable')
