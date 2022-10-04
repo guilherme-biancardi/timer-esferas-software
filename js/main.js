@@ -16,6 +16,20 @@ const keys = {
     'End': () => isAlarm ? stopAlarm() : null,
 }
 
+
+// verificando se é a primeira vez que o usuário acessa a página, se sim, mostra o modal de introdução
+window.onload = () => {
+    if (!localStorage.getItem('firstTime')) {
+        classList('.modal-backdrop', 'remove', 'disable')
+    }
+}
+
+// evento para fechar o modal de introdução
+btnCloseModal.addEventListener('click', () => {
+    classList('.modal-backdrop', 'add', 'disable')
+    localStorage.setItem('firstTime', true)
+})
+
 // evento dos botoões de iniciar e cancelar
 btnStart.addEventListener('click', () => isAlarm ? null : isPause ? pause() : play())
 btnCancel.addEventListener('click', stop)
@@ -55,10 +69,4 @@ inputs.forEach((input, index) => {
 
     // evento para limitar o input apenas para números 
     input.addEventListener('input', () => input.value = input.value.replace(/[^0-9]/g, ''))
-})
-
-// evento para fechar o modal de introdução
-btnCloseModal.addEventListener('click', () => {
-    classList('.modal-backdrop', 'add', 'disable')
-    localStorage.setItem('firstTime', true)
 })
