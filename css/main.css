@@ -1,5 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600&display=swap');
 @import url('./modal.css');
+
+@font-face {
+  font-family: 'Rubik';
+  src: url('../assets/font/Rubik-VariableFont_wght.ttf');
+}
 
 @font-face {
   font-family: 'segments';
