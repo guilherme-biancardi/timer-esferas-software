@@ -78,4 +78,13 @@ const stopAlarm = () => {
     isAlarm = false
 }
 
+// evento para caso o alarme toque até o final
+audio.addEventListener('ended', () => {
+    isAlarm = false
+    classList('body', 'remove', 'alarm-animation')
+    classList('.btn-alarm', 'add', 'disable')
+    classList('.btn-start', 'remove', 'disable')
+    stop()
+})
+
 export { play, pause, stopAlarm, stop, classList, isPause, isAlarm }

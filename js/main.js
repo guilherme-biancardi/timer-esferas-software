@@ -4,8 +4,7 @@ import { isAlarm, isPause, pause, play, stop, stopAlarm, classList } from "./mod
 // elementos da página
 const btnStart = document.querySelector('.btn-start'),
     btnCancel = document.querySelector('.btn-cancel'),
-    btnCloseModal = document.querySelector('.btn-close'),
-    audio = new Audio('../assets/audio.mp3')
+    btnCloseModal = document.querySelector('.btn-close')
 
 // objeto responsável por atribuir funções as teclas I e P na página
 // há também as funções de parar e encerrar o alarme
@@ -39,15 +38,6 @@ document.body.addEventListener('keyup', (event) => keys[event.key] ? keys[event.
 
 // evento do botão de parar o alarme
 document.querySelector('.btn-alarm').addEventListener('click', stopAlarm)
-
-// evento para caso o alarme toque até o final
-audio.addEventListener('ended', () => {
-    isAlarm = false
-    classList('body', 'remove', 'alarm-animation')
-    classList('.btn-alarm', 'add', 'disable')
-    classList('.btn-start', 'remove', 'disable')
-    stop()
-})
 
 // eventos de verificar e mudar os valores quando necessário
 const inputs = document.querySelectorAll('.inputs input'),
